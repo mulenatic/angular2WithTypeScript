@@ -3,8 +3,7 @@ import {Component} from 'angular2/core';
 
 @Component({
     selector: 'app',
-    template: `<h1>Hello {{name}}!</h1>`
-})
+    template: `<h1>Hello {{name}}!</h1>`})
 /**
  * AppComponent
  */
@@ -16,3 +15,5 @@ class AppComponent {
         this.name = 'Angular 2';
     }
 }
+
+bootstrap(AppComponent);
