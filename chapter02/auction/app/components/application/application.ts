@@ -6,6 +6,21 @@ import ProductItemComponent from '../product-item/product-item';
 import SearchComponent from 'app/components/search/search';
 import {Product, ProductService} from 'app/services/product-service';
 
+@Component({
+    selector: 'auction-application',
+    providers: [
+        ProductService
+    ],
+    templateUrl: 'app/components/application/application.html',
+    styleUrls: ['app/components/application/application.css'],
+    directives: [
+        CarouselComponent,
+        FooterComponent,
+        NavbarComponent,
+        ProductItemComponent,
+        SearchComponent
+    ]
+})
 export default class ApplicationComponent {
     
     products: Array<Product> = [];
