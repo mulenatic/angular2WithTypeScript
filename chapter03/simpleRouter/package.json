@@ -1,6 +1,7 @@
 {
   "name": "simpleRouter",
   "description": "",
+  "version": "1.0.0",
   "scripts": {
     "start": "live-server"
   },
@@ -15,5 +16,8 @@
   "devDependencies": {
     "live-server": "^0.8.2",
     "typescript": "1.8.9"
+  },
+  "engines": {
+    "npm": ">=2.14.x"
   }
 }

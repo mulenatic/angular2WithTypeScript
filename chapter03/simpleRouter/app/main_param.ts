@@ -15,10 +15,9 @@ import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, LocationStrategy, Hash
 })
 @RouteConfig([
     {path: '/',            component: HomeComponent,               as: 'Home'},
-    {path: '/product/:id', component: ProductDetailComponentParam, as: 'ProductDetail'}
+    {path: '/product/:id', component: ProductDetailComponentParam, as: 'ProductDetail', data: {isProd: true}}
 ])
 class RootComponent{}
 
-bootstrap(RootComponent, [ROUTER_PROVIDERS,
-provide(LocationStrategy, {useClass: HashLocationStrategy})]);
+bootstrap(RootComponent, [ROUTER_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy})]);
 
