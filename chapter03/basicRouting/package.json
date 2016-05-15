@@ -1,5 +1,5 @@
 {
-  "name": "basicRouting",
+  "name": "BasicRouting",
   "version": "1.0.0",
   "description": "Example project for basic angular2 routing.",
   "scripts": {
