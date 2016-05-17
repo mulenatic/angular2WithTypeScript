@@ -3,7 +3,7 @@ import {RouteParams} from 'angular2/router';
 
 @Component({
     selector: 'product', 
-    template: '<h1 class="product">Product Details for product: {{productId}}</h1>',
+    template: '<h1 class="product">Product Details for product: {{productID}}</h1>',
     styles: ['.product {background: cyan}']})
 export class ProductDetailComponent {
     
