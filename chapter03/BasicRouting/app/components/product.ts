@@ -17,7 +17,7 @@ import {SellerInfoComponent} from './seller';
     directives: ROUTER_DIRECTIVES})
 @RouteConfig([
     {path: '/', component: ProductDescriptionComponent, as 'ProductDescription'},
-    {path: '/seller', component: SellerInfoComponent, as: 'SellerInfo'}])
+    {path: '/seller/:id', component: SellerInfoComponent, as: 'SellerInfo'}])
 export class ProductDetailComponent {
     
     productID: string;
