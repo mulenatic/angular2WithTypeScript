@@ -1,26 +1,27 @@
 import {Component} from 'angular2/core';
-import CarouselComponent from 'app/components/carousel/carousel';
+import {Route, RouteConfig, RouterOutlet} from 'angular2/router';
+import HomeComponent from 'app/components/home/home';
 import FooterComponent from 'app/components/footer/footer';
 import NavbarComponent from 'app/components/navbar/navbar';
-import ProductItemComponent from '../product-item/product-item';
 import SearchComponent from 'app/components/search/search';
+import {ProductDetailComponent} from '../product-detail/product-detail';
 import {Product, ProductService} from 'app/services/product-service';
 
 @Component({
     selector: 'auction-application',
-    providers: [
-        ProductService
-    ],
     templateUrl: 'app/components/application/application.html',
-    styleUrls: ['app/components/application/application.css'],
     directives: [
-        CarouselComponent,
+        RouterOutlet,
         FooterComponent,
         NavbarComponent,
-        ProductItemComponent,
+        HomeComponent,
         SearchComponent
     ]
 })
+@RouteConfig([
+    {path: '/', component: HomeComponent, as: 'Home'},
+    {path: '/products/:prodTitle', component: ProductDetailComponent, as: 'ProductDetail'}    
+])
 export default class ApplicationComponent {
     
     products: Array<Product> = [];
