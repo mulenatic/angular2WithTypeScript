@@ -54,4 +54,4 @@ class RootComponent{}
 
 const DEFAULT_SERVICE_PROVIDERS = [ProductService];
 
-bootstrap(RootComponent, [DEFAULT_SERVICE_PROVIDERS]);
+bootstrap(RootComponent, [provide(ProductService, {useClass: MockProductService})]);
