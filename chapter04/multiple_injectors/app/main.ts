@@ -30,17 +30,16 @@ class Product1Component {
     }
 }
 
-const IS_DEV_ENVIRONMENT: boolean = true;
-
 @Component({
     selector: 'product2',
-    providers: [provide(ProductService, {useFactory: () => {
-        if (IS_DEV_ENVIRONMENT) {
+    providers: [provide(ProductService, {useFactory: (isDev) => {
+        if (isDev) {
             return new MockProductService();
         } else {
             return new ProductService();
         }
-    }})],
+    },
+    deps: ["IS_DEV_ENVIRONMENT"]})],
     template: '{{product.title}}'
 })
 class Product2Component {
@@ -62,4 +61,4 @@ class RootComponent{}
 
 const DEFAULT_SERVICE_PROVIDERS = [ProductService];
 
-bootstrap(RootComponent, [provide(ProductService, {useClass: MockProductService})]);
+bootstrap(RootComponent, [provide(ProductService, {useClass: MockProductService}), provide("IS_DEV_ENVIRONMENT", {useValue: true})]);
