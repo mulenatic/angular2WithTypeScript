@@ -30,9 +30,17 @@ class Product1Component {
     }
 }
 
+const IS_DEV_ENVIRONMENT: boolean = true;
+
 @Component({
     selector: 'product2',
-    providers: [provide(ProductService, {useClass: MockProductService})],
+    providers: [provide(ProductService, {useFactory: () => {
+        if (IS_DEV_ENVIRONMENT) {
+            return new MockProductService();
+        } else {
+            return new ProductService();
+        }
+    }})],
     template: '{{product.title}}'
 })
 class Product2Component {
