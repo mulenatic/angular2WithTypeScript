@@ -13,12 +13,10 @@ class AppComponent{
     
     greeting: string = 'A value';
     
-    onInputEvent(event: Event): void {
+    onInputEvent({target}): void {
         
-        let inputElement = event.target;
-        
-        console.log(`The input property value = ${inputElement.value}`);
-        console.log(`The input attribute value = ${inputElement.getAttribute('value')}`);
+        console.log(`The input property value = ${target.value}`);
+        console.log(`The input attribute value = ${target.getAttribute('value')}`);
         console.log(`The greeting property value = ${this.greeting}`);
         
     }
