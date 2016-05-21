@@ -5,7 +5,6 @@ import ProductItemComponent from '../product-item/product-item';
 
 @Component({
     selector: 'auction-home-page',
-    providers: [ProductService],
     templateUrl: 'app/components/home/home.html'
     styleUrls: ['app/components/home/home.css'],
     directives: [
