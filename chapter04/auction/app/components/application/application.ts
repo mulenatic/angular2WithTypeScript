@@ -19,6 +19,6 @@ import {ProductDetailComponent} from '../product-detail/product-detail';
 })
 @RouteConfig([
     {path: '/', component: HomeComponent, as: 'Home'},
-    {path: '/products/:prodTitle', component: ProductDetailComponent, as: 'ProductDetail'}    
+    {path: '/products/:prodId', component: ProductDetailComponent, as: 'ProductDetail'}    
 ])
 export default class ApplicationComponent {}
