@@ -2,21 +2,30 @@ import {bootstrap} from 'angular2/platform/browser';
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: "app",
+    selector: "stock-search",
     template: `
-    <button (click)="flag = !flag">Toggle flag's value</button>
-    
-    <p>Flag's value: {{flag}}</p>
-    
-    <p> 1. span with *ngIf="flag": <span *ngIf="flag">Flag is true</span></p>
-    
-    <p>2. template with [ngIf]="flag": <template [ngIf]="flag">Flag is true</template></p>
+    <input type='text' placehode="Enter stock symbol" [(ngModel)] = "lastStockSymbol">
+    <br>
+    The value of lastStockSymbol is {{lastStockSymbol}}
     `
 })
-class AppComponent{
+class StockComponent{
     
-    flag: boolean = true;
-        
+    lastStockSymbol: string;
+    
+    constructor() {
+        setTimeout(() => {
+            this.lastStockSymbol="AAPL"
+        }, 1000);
+    }
+            
 }
+
+@Component({
+    selector: 'app',
+    directives: [StockComponent],
+    template:`<stock-search></stock-search>`
+})
+class AppComponent {}
 
 bootstrap(AppComponent);
