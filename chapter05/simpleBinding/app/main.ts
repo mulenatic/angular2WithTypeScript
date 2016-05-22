@@ -3,23 +3,19 @@ import {Component} from 'angular2/core';
 
 @Component({
     selector: "app",
-    template: `<h3>Property vs attribute binding:</h3>
-    <input  [value] = "greeting"
-            [attr.value] = "greeting"
-            (input)="onInputEvent($event)">
+    template: `
+    <button (click)="flag = !flag">Toggle flag's value</button>
+    
+    <p>Flag's value: {{flag}}</p>
+    
+    <p> 1. span with *ngIf="flag": <span *ngIf="flag">Flag is true</span></p>
+    
+    <p>2. template with [ngIf]="flag": <template [ngIf]="flag">Flag is true</template></p>
     `
 })
 class AppComponent{
     
-    greeting: string = 'A value';
-    
-    onInputEvent({target}): void {
-        
-        console.log(`The input property value = ${target.value}`);
-        console.log(`The input attribute value = ${target.getAttribute('value')}`);
-        console.log(`The greeting property value = ${this.greeting}`);
-        
-    }
+    flag: boolean = true;
         
 }
 
