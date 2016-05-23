@@ -1,31 +1,29 @@
 import {bootstrap} from 'angular2/platform/browser';
 import {Component} from 'angular2/core';
-
-@Component({
-    selector: "stock-search",
-    template: `
-    <input type='text' placehode="Enter stock symbol" [(ngModel)] = "lastStockSymbol">
-    <br>
-    The value of lastStockSymbol is {{lastStockSymbol}}
-    `
-})
-class StockComponent{
-    
-    lastStockSymbol: string;
-    
-    constructor() {
-        setTimeout(() => {
-            this.lastStockSymbol="AAPL"
-        }, 1000);
-    }
-            
-}
+import {Control, ControlGroup, FORM_DIRECTIVES} from 'angular2/common';
+import'rxjs/add/operator/debounceTime';
 
 @Component({
     selector: 'app',
-    directives: [StockComponent],
-    template:`<stock-search></stock-search>`
+    template:`<h2>Observable events demo</h2>
+    <input type="text" placeholde="Enter stock" [ngFormControl]="searchInput">`
 })
-class AppComponent {}
+class AppComponent {
+    
+    searchInput: Control;
+    
+    constructor() {
+        this.searchInput = new Control('');
+        
+        this.searchInput.valueChanges.debounceTime(500).subscribe(stock => this.getStockQuoteFromServer(stock));
+        
+    }
+    
+    getStockQuoteFromServer(stock) {
+        
+        console.log(`The price of ${stock} is ${100*Math.random().toFixed(4)}`);
+    }
+    
+}
 
 bootstrap(AppComponent);
