@@ -3,7 +3,7 @@ import {Pipe, PipeTransform} from 'angular2/core';
 @Pipe({name: 'filter'})
 export class FilterPipe implements PipeTransform {
     
-    transform(list: any[], ...parameters: string[]): any {
+    transform(list: any[], parameters: string[]): any {
         
         const [filterByField, filterValue] = parameters;
         
