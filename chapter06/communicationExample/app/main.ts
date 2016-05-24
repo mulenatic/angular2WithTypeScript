@@ -8,7 +8,19 @@ import {Component, Input} from 'angular2/core';
 })
 class OrderComponent{
     
-    @Input('stock-symbol') stockSymbol: string;
+    private _stockSymbol: string;
+    
+    @Input('stock-symbol') 
+    set stockSymbol(value: string) {
+        this._stockSymbol = value;
+        if ( this._stockSymbol != undefined ) {
+            console.log(`Sending a Buy order to NASDAQ: ${this.stockSymbol} ${this.quantity}`);
+        }
+    }
+    
+    get stockSymbol(): string {
+        return this._stockSymbol;
+    }
     @Input() quantity: number;
         
 }
