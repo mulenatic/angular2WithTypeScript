@@ -1,44 +1,55 @@
 import {bootstrap} from 'angular2/platform/browser';
-import {Component, Input} from 'angular2/core';
+import {Component, Output, EventEmitter} from 'angular2/core';
+
+interface IPriceQuote {
+    stockSymbol: string;
+    lastPrice: number;
+}
 
 @Component({
-    selector: 'order-processor',
-    template: `Buying {{quantity}} shares of {{stockSymbol}}`,
-    styles: [`:host {background: cyan;}`]
+    selector: 'price-quoter',
+    template: `<strong>Inside PriceQuoterComponent: {{stockSymbol}} {{price | currency: 'USD':true:'1.2-2'}}</strong>`,
+    styles: [`:host {background: pink;}`]
 })
-class OrderComponent{
-    
-    private _stockSymbol: string;
-    
-    @Input('stock-symbol') 
-    set stockSymbol(value: string) {
-        this._stockSymbol = value;
-        if ( this._stockSymbol != undefined ) {
-            console.log(`Sending a Buy order to NASDAQ: ${this.stockSymbol} ${this.quantity}`);
-        }
+class PriceQuoterComponent {
+    @Output('last-price') lastPrice: EventEmitter<IPriceQuote> = new EventEmitter();
+    stockSymbol: string = "IBM";
+    price: number;
+
+    constructor() {
+        setInterval(
+            () => {
+                
+                let priceQuote: IPriceQuote = {
+                    stockSymbol: this.stockSymbol,
+                    lastPrice: 100 * Math.random()
+                }
+
+                this.price = priceQuote.lastPrice;
+
+                this.lastPrice.emit(priceQuote)
+
+            }, 1000);
     }
-    
-    get stockSymbol(): string {
-        return this._stockSymbol;
-    }
-    @Input() quantity: number;
-        
 }
 
 @Component({
     selector: "app",
-    template: `<input type="text" placeholder="Enter stock (e.g. IBM)" (change)="onInputEvent($event)">
+    template: `<price-quoter (last-price)="priceQuoteHandler($event)"></price-quoter>
     <br/>
-    <order-processor [stock-symbol]="stock" quantity="100"></order-processor>`,
-    directives: [OrderComponent]
+    AppComponent received: {{stockSymbol}} {{price | currency: 'USD':true:'1.2-2'}}`,
+    directives: [PriceQuoterComponent]
 })
-class AppComponent{
-    
-    stock: string;
-    
-    onInputEvent({target}): void {
-        this.stock = target.value;
-    }    
+class AppComponent {
+
+    stockSymbol: string;
+    price: number;
+
+    priceQuoteHandler(event: IPriceQuote) {
+        this.stockSymbol = event.stockSymbol;
+        this.price = event.lastPrice;
+    }
+
 }
 
 bootstrap(AppComponent);
