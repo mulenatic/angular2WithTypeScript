@@ -1,55 +1,26 @@
 import {bootstrap} from 'angular2/platform/browser';
-import {Component, Output, EventEmitter} from 'angular2/core';
-
-interface IPriceQuote {
-    stockSymbol: string;
-    lastPrice: number;
-}
+import {Component} from 'angular2/core';
+import {PriceQuoterComponent} from './price_quoter.ts';
+import {OrderComponent} from './order.ts';
+import {Stock} from "./stock.ts";
 
 @Component({
-    selector: 'price-quoter',
-    template: `<strong>Inside PriceQuoterComponent: {{stockSymbol}} {{price | currency: 'USD':true:'1.2-2'}}</strong>`,
-    styles: [`:host {background: pink;}`]
+    selector: 'app',
+    template: `<price-quoter (buy)="priceQuoteHandler($event)"></price-quoter>
+<br/>
+<order-processor [stock]="stock"></order-processor>`,
+    directives: [OrderComponent, PriceQuoterComponent]
 })
-class PriceQuoterComponent {
-    @Output('last-price') lastPrice: EventEmitter<IPriceQuote> = new EventEmitter();
-    stockSymbol: string = "IBM";
-    price: number;
+class MediatorComponent {
 
-    constructor() {
-        setInterval(
-            () => {
-                
-                let priceQuote: IPriceQuote = {
-                    stockSymbol: this.stockSymbol,
-                    lastPrice: 100 * Math.random()
-                }
+    stock: Stock;
 
-                this.price = priceQuote.lastPrice;
-
-                this.lastPrice.emit(priceQuote)
-
-            }, 1000);
-    }
-}
-
-@Component({
-    selector: "app",
-    template: `<price-quoter (last-price)="priceQuoteHandler($event)"></price-quoter>
-    <br/>
-    AppComponent received: {{stockSymbol}} {{price | currency: 'USD':true:'1.2-2'}}`,
-    directives: [PriceQuoterComponent]
-})
-class AppComponent {
-
-    stockSymbol: string;
-    price: number;
-
-    priceQuoteHandler(event: IPriceQuote) {
-        this.stockSymbol = event.stockSymbol;
-        this.price = event.lastPrice;
+    priceQuoteHandler(event: Stock) {
+        this.stock = event;
     }
 
 }
 
-bootstrap(AppComponent);
+bootstrap(MediatorComponent);
+
+

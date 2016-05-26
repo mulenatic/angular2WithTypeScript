@@ -9,5 +9,10 @@ System.config({
             defaultExtension: "ts",
             main: "main.ts"
         }
+    },
+    meta: {
+        'app/stock.ts': {
+            format: 'es6'
+        }
     }
 });
