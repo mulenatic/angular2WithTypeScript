@@ -10,7 +10,7 @@ import {Component, ViewEncapsulation} from 'angular2/core';
     <div>This &lt;div&gt; is defined in the child's template</div>
     <ng-content></ng-content>
 </div>`,
-    encapsulation: ViewEncapsulation.Emulated
+    encapsulation: ViewEncapsulation.None
 })
 class ChildComponent { }
 
@@ -27,7 +27,7 @@ class ChildComponent { }
   </child>
 </div>`,
 
-    encapsulation: ViewEncapsulation.Emulated
+    encapsulation: ViewEncapsulation.None
 })
 class AppComponent { }
 
