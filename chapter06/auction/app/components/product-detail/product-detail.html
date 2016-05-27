@@ -1,7 +1,7 @@
 <div class="thumbnail">
     <img src="http://placehold.it/820x320">
     <div>
-        <h4 class="pull-right">{{product.price}}</h4>
+        <h4 class="pull-right">{{product.price | currency:'USD':true:'1.2-2'}}</h4>
         <h4>{{product.title}}</h4>
         <h4>{{product.description}}</h4>
         <p>{{product.description}}</p>
@@ -25,7 +25,7 @@
         <div class="col-md-12">
             <auction-stars [rating]="review.rating"></auction-stars>
             <span>{{ review.user }}</span>
-            <span class="pull-right">{{ review.timestamp <!--| date: 'shortDate'-->}}</span>
+            <span class="pull-right">{{ review.timestamp | date: 'shortDate'}}</span>
             <p>{{ review.comment }}</p>
         </div>
     </div>

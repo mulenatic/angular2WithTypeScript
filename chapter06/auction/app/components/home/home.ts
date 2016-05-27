@@ -8,7 +8,7 @@ import 'rxjs/add/operator/debounceTime';
 
 @Component({
     selector: 'auction-home-page',
-    templateUrl: 'app/components/home/home.html'
+    templateUrl: 'app/components/home/home.html',
     styleUrls: ['app/components/home/home.css'],
     directives: [
         NgFormControl,
@@ -16,20 +16,20 @@ import 'rxjs/add/operator/debounceTime';
     ],
     pipes: [FilterPipe]
 })
-export default class HomeComponent{
-    
+export default class HomeComponent {
+
     products: Product[] = [];
     titleFilter: Control = new Control();
     filterCriteria: string;
-    
+
     constructor(private productService: ProductService) {
         this.products = this.productService.getProducts();
-        
+
         this.titleFilter.valueChanges.debounceTime(100).subscribe(
             value => this.filterCriteria = value, error => console.error(error)
         );
     }
-    
+
 }
 
-    
+
