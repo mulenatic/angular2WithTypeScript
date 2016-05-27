@@ -1,34 +1,37 @@
 import {bootstrap} from 'angular2/platform/browser';
-import {Component, ViewEncapsulation} from 'angular2/core';
+import {Component} from 'angular2/core';
 
 @Component({
     selector: 'child',
-    styles: ['.wrapper {background: lightgreen;}'],
+    styles: ['.child {background: lightgreen;}'],
     template: `
-<div class="wrapper">
+<div class="child">
   <h2>Child</h2>
-    <div>This &lt;div&gt; is defined in the child's template</div>
-    <ng-content></ng-content>
-</div>`,
-    encapsulation: ViewEncapsulation.None
+  <ng-content select=".header"></ng-content>
+  <div>This content is defined in child</div>
+  <ng-content></ng-content>
+</div>`
 })
 class ChildComponent { }
 
 @Component({
     selector: 'app',
-    styles: ['.wrapper {background: cyan;}'],
+    styles: ['.app {background: cyan;}'],
     directives: [ChildComponent],
     template: `
-<div class="wrapper">
+<div class="app">
   <h2>Parent</h2>
-    <div>This &lt;div&gt; is defined in the parent's template</div>
-  <child>
-    <div>Parent projects this &lt;div&gt; onto the child</div>
-  </child>
-</div>`,
-
-    encapsulation: ViewEncapsulation.None
+    <div>This &lt;div&gt; is defined in the Parent's template</div>
+    <child>
+      <div class="header">Child got this header from parent {{todaysDate}}</div>
+      <div class="footer">Child got this footer from parent</div>
+    </child>
+</div>`
 })
-class AppComponent { }
+class AppComponent {
+
+    todaysDate: string = new Date().toLocaleDateString();
+
+}
 
 bootstrap(AppComponent);
