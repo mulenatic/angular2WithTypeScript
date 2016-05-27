@@ -9,12 +9,14 @@ import {Component, Input, OnChanges, SimpleChange} from 'angular2/core';
   <h2>Child</h2>
   <div>Greeting: {{greeting}}</div>
   <div>User name: {{user.name}}</div>
+  <div>Number: {{number}}</div>
   <div>Message: <input [(ngModel)]="message"></div>
 </div>`})
 class ChildComponent implements OnChanges {
 
     @Input() greeting: string;
     @Input() user: { name: string };
+    @Input() number: number;
 
     message: string = 'Initial message';
 
@@ -33,13 +35,15 @@ class ChildComponent implements OnChanges {
   <h2>Parent</h2>
   <div>Greeting: <input type="text" [value]="greeting" (change)="greeting = $event.target.value"></div>
   <div>User name: <input type="text" [value]="user.name" (change)="user.name = $event.target.value"></div>
-  <child [greeting]="greeting" [user]="user"></child>
+  <div>Number: <input type="number" [value]="number" (change)="number = $event.target.value"></div>
+  <child [greeting]="greeting" [user]="user" [number]="number"></child>
 </div>`
 })
 class AppComponent {
 
     greeting: string = 'Hello';
     user: { name: string } = { name: 'John' };
+    number: number = 5;
 
 }
 
