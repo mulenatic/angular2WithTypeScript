@@ -6,23 +6,36 @@ import "rxjs/add/operator/map";
 
 @Component({
     selector: "http-client",
-    template: `<h1>All Products</h1>
-  <li *ngFor="#product of products | async ">
-    {{product.title}} - {{product.price | currency}}
-  </li>
-<ul>
-</ul>`
+    template: `<h1>Find Product by ID</h1>
+<form #f="ngForm" (ngSubmit)="getProductByID(f.value)">
+  <label for="productID">Enter Product ID</label>
+  <input id="productID" type="number" ngControl="productID">
+  <button type="submit">Find product</button>
+</form>
+<h4>{{productTitle}} {{productPrice}}</h4>
+`
 })
 class AppComponent {
 
-    // the Product class is not available for angular in this example, in a real app, this should be better.
-    products: Observable<Array<any>>;
+    productTitle: string;
+    productPrice: string;
 
 
-    constructor(private http: Http) {
 
-        this.products = http.get("/products").map(res => res.json());
 
+    constructor(private http: Http) { }
+
+    getProductByID(formValue) {
+        this.http.get(`/products/${formValue.productID}`)
+            .map(res => res.json())
+            .subscribe(
+            data => {
+                this.productTitle = data.title;
+                this.productPrice = `$` + data.price;
+            },
+            err => console.log("Can't get product details. Error code: %s, URL: %s", err.status, err.url),
+            () => console.log("Done")
+            );
     }
 
 
