@@ -1,6 +1,12 @@
 import * as express from "express";
+import * as path from "path";
 
 const app = express();
+
+app.use("/", express.static(path.join(__dirname, "..", "client")));
+app.use("/", express.static(path.join(__dirname, "..", "node-modules")));
+
+app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/main.html")));
 
 class Product {
     constructor(
@@ -20,8 +26,6 @@ function getProducts(): Product[] {
     return products;
 }
 
-app.get("/", (req, res) => res.send("The URL for products is http://localhost:8000/products"));
-
 app.get("/products", (req, res) => res.json(getProducts()));
 
 function getProductsById(productId: number): Product {
@@ -31,6 +35,7 @@ function getProductsById(productId: number): Product {
 app.get("/products/:id", (req, res) => {
     res.json(getProductsById(parseInt(req.params.id)));
 });
+
 
 const server = app.listen(8000, "localhost", () => {
     const {address, port} = server.address();
