@@ -4,9 +4,9 @@ import * as path from "path";
 const app = express();
 
 app.use("/", express.static(path.join(__dirname, "..", "client")));
-app.use("/", express.static(path.join(__dirname, "..", "node-modules")));
+app.use("/node_modules", express.static(path.join(__dirname, "..", "node_modules")));
 
-app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/main.html")));
+app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/index.html")));
 
 class Product {
     constructor(
