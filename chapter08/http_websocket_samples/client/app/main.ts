@@ -7,7 +7,7 @@ import {ProductService} from "./product-service";
 
 @Component({
     selector: "http-client",
-    providers: [ProductService],
+    providers: [ProductService], f
     template: `<h1>Find Product by ID</h1>
 <form #f="ngForm" (ngSubmit)="getProductByID(f.value)">
   <label for="productID">Enter Product ID</label>

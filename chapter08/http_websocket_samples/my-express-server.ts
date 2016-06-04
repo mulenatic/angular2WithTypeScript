@@ -1,44 +1,20 @@
 import * as express from "express";
 import * as path from "path";
+import {Server} from "ws";
 
 const app = express();
 
 app.use("/", express.static(path.join(__dirname, "..", "client")));
 app.use("/node_modules", express.static(path.join(__dirname, "..", "node_modules")));
 
+// HTTP Server
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "../client/index.html")));
 
-class Product {
-    constructor(
-        public id: number,
-        public title: string,
-        public price: number
-    ) { }
-}
+const httpServer = app.listen(8000, "localhost", () => console.log('HTTP Server is listening on port 8000'));
 
-const products = [
-    new Product(0, "First product", 24.99),
-    new Product(1, "Second product", 64.99),
-    new Product(2, "Third product", 74.99)
-];
+// Websocket server
+var wsServer: Server = new Server({ port: 8085 });
 
-function getProducts(): Product[] {
-    return products;
-}
+console.log("Websocket server is listening on port 8085");
 
-app.get("/products", (req, res) => res.json(getProducts()));
-
-function getProductsById(productId: number): Product {
-    return products.find(p => p.id === productId);
-}
-
-app.get("/products/:id", (req, res) => {
-    res.json(getProductsById(parseInt(req.params.id)));
-});
-
-
-const server = app.listen(8000, "localhost", () => {
-    const {address, port} = server.address();
-
-    console.log("Listening on http://localhost:" + port);
-});
+wsServer.on("connection", websocket => websocket.send("This message was pushed by the WebSocket server"));
