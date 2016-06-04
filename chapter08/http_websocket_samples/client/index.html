@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<meta
-	    charset="UTF-8">
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+	<script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+	<script src="node_modules/typescript/lib/typescript.js"></script>
+	<script src="node_modules/systemjs/dist/system.js"></script>
+	<script src="node_modules/rxjs/bundles/Rx.js"></script>
+	<script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+	<script src="node_modules/angular2/bundles/http.dev.js"
+	 <script src="config.js"></script> 
     </head>
     <body>
-	<span id="messageGoesHere"></span>
-
-	<script type="text/javascript">
-	 var ws = new WebSocket("ws://localhost:8085");
-
-	 ws.onmessage = function(event) {
-	     var mySpan = document.getElementById("messageGoesHere");
-	     mySpan.innerHTML = event.data;
-	 };
-
-	 ws.onerror = function(event) {
-	     console.log("Error", event);
-	 }
+	<script>
+	 System.config({
+	     baseURL: "/",
+	     transpiler: "typescript",
+	     typescriptOptions: {
+		 "emitDecoratorMetadata": "true"
+	     },
+	     packages : {
+		 app : {
+		     defaultExtension: "ts"
+		 }
+	     }
+	 });
 	</script>
+        <http-client>Loading...</http-client>
+        <script>System.import('app/main')</script>
     </body>
 </html>

@@ -1,42 +1,24 @@
 import {bootstrap} from "angular2/platform/browser";
 import {Component} from "angular2/core";
-import {HTTP_PROVIDERS, Http} from "angular2/http";
-import {Observable} from "rxjs/Observable";
+import {Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
-import {ProductService} from "./product-service";
+import {CustomObservableService} from "./custom_observable_service";
 
 @Component({
     selector: "http-client",
-    providers: [ProductService], f
-    template: `<h1>Find Product by ID</h1>
-<form #f="ngForm" (ngSubmit)="getProductByID(f.value)">
-  <label for="productID">Enter Product ID</label>
-  <input id="productID" type="number" ngControl="productID">
-  <button type="submit">Find product</button>
-</form>
-<h4>{{productTitle}} {{productPrice}}</h4>
-`
-})
+    providers: [CustomObservableService],
+    template: `<h1>Simple subscriber to a service</h1>
+Current time: {{currentTime | date: 'jms'}}
+`})
 class AppComponent {
 
-    productTitle: string;
-    productPrice: string;
+    currentTime: Date;
 
-    constructor(private productService: ProductService) { }
+    constructor(private sampleService: CustomObservableService) {
 
-    getProductByID(formValue) {
-        this.productService.getProductByID(formValue.productID)
-            .subscribe(
-            data => {
-                this.productTitle = data.title;
-                this.productPrice = `$` + data.price;
-            },
-            err => console.log("Can't get product details. Error code: %s, URL: %s", err.status, err.url),
-            () => console.log("Done")
-            );
+        this.sampleService.createObservableService().subscribe(data => this.currentTime = data);
     }
-
 
 }
 
-bootstrap(AppComponent, [HTTP_PROVIDERS]);
+bootstrap(AppComponent);
