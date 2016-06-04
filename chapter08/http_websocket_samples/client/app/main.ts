@@ -3,9 +3,11 @@ import {Component} from "angular2/core";
 import {HTTP_PROVIDERS, Http} from "angular2/http";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
+import {ProductService} from "./product-service";
 
 @Component({
     selector: "http-client",
+    providers: [ProductService],
     template: `<h1>Find Product by ID</h1>
 <form #f="ngForm" (ngSubmit)="getProductByID(f.value)">
   <label for="productID">Enter Product ID</label>
@@ -20,14 +22,10 @@ class AppComponent {
     productTitle: string;
     productPrice: string;
 
-
-
-
-    constructor(private http: Http) { }
+    constructor(private productService: ProductService) { }
 
     getProductByID(formValue) {
-        this.http.get(`/products/${formValue.productID}`)
-            .map(res => res.json())
+        this.productService.getProductByID(formValue.productID)
             .subscribe(
             data => {
                 this.productTitle = data.title;
