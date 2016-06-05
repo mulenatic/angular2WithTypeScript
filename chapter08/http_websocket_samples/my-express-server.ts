@@ -17,4 +17,9 @@ var wsServer: Server = new Server({ port: 8085 });
 
 console.log("Websocket server is listening on port 8085");
 
-wsServer.on("connection", websocket => websocket.send("This message was pushed by the WebSocket server"));
+wsServer.on("connection", websocket => {
+    websocket.send("This message was pushed by the WebSocket server");
+    websocket.on("message", message => console.log("Server received: %s", message));
+});
+
+

@@ -20,4 +20,8 @@ export class WebSocketService {
         );
 
     }
+
+    sendMessage(message: any) {
+        this.ws.send(message);
+    }
 }

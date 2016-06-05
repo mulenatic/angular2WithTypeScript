@@ -1,22 +1,34 @@
 import {bootstrap} from "angular2/platform/browser";
 import {Component} from "angular2/core";
-import {Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
-import {CustomObservableService} from "./custom_observable_service";
+import {WebSocketService} from "./websocket_observable_service";
 
 @Component({
     selector: "http-client",
-    providers: [CustomObservableService],
-    template: `<h1>Simple subscriber to a service</h1>
-Current time: {{currentTime | date: 'jms'}}
+    providers: [WebSocketService],
+    template: `<h1>Angular subscriber to WebSocket service</h1>
+{{messageFromService}}<br>
+<button (click)="sendMessageToServer()">Send msg to Server</button>
 `})
 class AppComponent {
 
-    currentTime: Date;
+    messageFromServer: string;
 
-    constructor(private sampleService: CustomObservableService) {
+    constructor(private wsService: WebSocketService) {
 
-        this.sampleService.createObservableService().subscribe(data => this.currentTime = data);
+        this.wsService.createObservableSocket("ws://localhost:8085")
+            .subscribe(
+            data => {
+                this.messageFromServer = data;
+            },
+            err => console.log(err),
+            () => console.log("The observable stream is complete")
+            );
+
+    }
+
+    sendMessageToServer() {
+        this.wsService.sendMessage("Hello from client");
     }
 
 }
