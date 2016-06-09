@@ -4,8 +4,8 @@ import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig} from "angular2/router";
 import {LocationStrategy, HashLocationStrategy, APP_BASE_HREF} from "angular2/router";
 
-import {HomeComponent} from "./home/home";
-import {WeatherComponent} from "./weather/weather";
+import {HomeComponent} from "./components/home/home";
+import {WeatherComponent} from "./components/weather/weather";
 
 @Component({
     selector: "app",

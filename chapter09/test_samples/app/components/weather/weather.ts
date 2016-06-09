@@ -3,7 +3,7 @@ import {Control, NgFormControl} from "angular2/common";
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/debounceTime";
-import {WeatherService} from "./weather-service";
+import {WeatherService} from "../../services/weather/weather-service";
 
 @Component({
     selector: "weather",
