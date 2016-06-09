@@ -1,5 +1,6 @@
 import {bootstrap} from "angular2/platform/browser";
 import {Component, provide} from "angular2/core";
+import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig} from "angular2/router";
 import {LocationStrategy, HashLocationStrategy, APP_BASE_HREF} from "angular2/router";
 
@@ -21,4 +22,4 @@ import {WeatherComponent} from "./weather/weather";
 class AppComponent {
 }
 
-bootstrap(AppComponent, [ROUTER_PROVIDERS, provide(APP_BASE_HREF, { useValue: "/" })]);
+bootstrap(AppComponent, [ROUTER_PROVIDERS, provide(APP_BASE_HREF, { useValue: "/" }), HTTP_PROVIDERS]);
