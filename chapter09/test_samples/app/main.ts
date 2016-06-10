@@ -12,14 +12,15 @@ import {WeatherComponent} from "./components/weather/weather";
     template: `<h1>Get Weather</h1>
     <div><a [routerLink]="['/Home']">Home</a>
 <a [routerLink]="['/Weather']">Weather</a>
+</div>
 <router-outlet></router-outlet>`,
     directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-    { path: "/", component: HomeComponent, as: "Home" },
-    { path: "/weather", component: WeatherComponent, as: "Weather" }
+    { path: "/", component: HomeComponent, name: "Home" },
+    { path: "/weather", component: WeatherComponent, name: "Weather" }
 ])
-class AppComponent {
+export class AppComponent {
 }
 
 bootstrap(AppComponent, [ROUTER_PROVIDERS, provide(APP_BASE_HREF, { useValue: "/" }), HTTP_PROVIDERS]);
