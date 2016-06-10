@@ -1,5 +1,5 @@
 import {Injectable} from "angular2/core";
-import {HTTP_PROVIDERS, Http} from "angular2/http";
+import {Http, Response} from "angular2/http";
 import {Observable} from "rxjs/Rx";
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/map";
@@ -18,7 +18,7 @@ export class WeatherService {
 
 
     getWeather(city): Observable<Array<any>> {
-        return this.http.get(this.baseWeatherURL + city + this.urlSuffix).map(res => res.json());
+        return this.http.get(this.baseWeatherURL + city + this.urlSuffix).map((res: Response) => res.json());
     }
 
 
