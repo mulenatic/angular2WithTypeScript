@@ -1,5 +1,4 @@
 System.config({
-    baseURL: "/",
     transpiler: "typescript",
     typescriptOptions: {
         "emitDecoratorMetadata": "true"

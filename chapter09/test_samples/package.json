@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Skeleton for angular2 projects.",
   "scripts": {
-    "start": "live-server"
+    "start": "live-server",
+    "test": "karma start karma.conf.js"
   },
   "author": "Thomas Kaczmarek",
   "private": true,
@@ -17,6 +18,10 @@
   },
   "devDependencies": {
     "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-safari-launcher": "^1.0.0",
     "live-server": "^1.0.0",
     "typescript": "^1.8.10"
   }
