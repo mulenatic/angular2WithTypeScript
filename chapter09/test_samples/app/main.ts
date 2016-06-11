@@ -6,6 +6,7 @@ import {LocationStrategy, HashLocationStrategy, APP_BASE_HREF} from "angular2/ro
 
 import {HomeComponent} from "./components/home/home";
 import {WeatherComponent} from "./components/weather/weather";
+import {WEATHER_URL_BASE, WEATHER_URL_SUFFIX} from "./services/weather/weather-service";
 
 @Component({
     selector: "app",
@@ -23,4 +24,5 @@ import {WeatherComponent} from "./components/weather/weather";
 export class AppComponent {
 }
 
-bootstrap(AppComponent, [ROUTER_PROVIDERS, provide(APP_BASE_HREF, { useValue: "/" }), HTTP_PROVIDERS]);
+bootstrap(AppComponent, [ROUTER_PROVIDERS, provide(APP_BASE_HREF, { useValue: "/" }), HTTP_PROVIDERS, provide(WEATHER_URL_BASE, { useValue: "http://api.openweathermap.org/data/2.5/find?q=" }), provide(WEATHER_URL_SUFFIX, { useValue: "&unit=metric&appid=aac075973c83d20eb87cd1afff1df1c2" })
+]);

@@ -1,24 +1,47 @@
-import {Injectable} from "angular2/core";
+import {Injectable, Inject, OpaqueToken} from "angular2/core";
 import {Http, Response} from "angular2/http";
 import {Observable} from "rxjs/Rx";
-import "rxjs/add/operator/switchMap";
+import "rxjs/add/operator/filter";
 import "rxjs/add/operator/map";
-import "rxjs/add/operator/debounceTime";
+
+export const WEATHER_URL_BASE = new OpaqueToken("WeatherUrlBase");
+export const WEATHER_URL_SUFFIX = new OpaqueToken("WeatherUrlSuffix");
+
+export interface WeatherResult {
+    place: string;
+    temperature: string;
+    humidity: string;
+}
 
 @Injectable()
 export class WeatherService {
 
+    constructor(private http: Http,
+        @Inject(WEATHER_URL_BASE) private urlBase: string,
+        @Inject(WEATHER_URL_SUFFIX) private urlSuffix: string) { }
 
-    private baseWeatherURL: string = "http://api.openweathermap.org/data/2.5/find?q=";
-    private urlSuffix: string = "&unit=metric&appid=aac075973c83d20eb87cd1afff1df1c2";
 
-    constructor(private http: Http) {
+    getWeather(city): Observable<WeatherResult> {
+
+        return this.http
+            .get(this.urlBase + city + this.urlSuffix)
+            .map((response: Response) => response.json())
+            .filter(this._hasResult)
+            .map(this._parseData);
 
     }
 
+    private _hasResult(data): boolean {
+        return data["cod"] !== "404" && data.list.length;
+    }
 
-    getWeather(city): Observable<Array<any>> {
-        return this.http.get(this.baseWeatherURL + city + this.urlSuffix).map((res: Response) => res.json());
+    private _parseData(data): WeatherResult {
+        let [first,] = data.list;
+        return {
+            place: first.name || "unknown",
+            temperature: first.main.temp,
+            humidity: first.main.humidity
+        };
     }
 
 
